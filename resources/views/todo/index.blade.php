@@ -29,7 +29,7 @@
         <div class="checkbox">
 
         <input type="checkbox"  id="{{$list->id}}" name="perm[{{ $list->id }}]" value="{{ $list->id }}"> 
-        <label class="strikethrough">{{$list->body}} </label> 
+        <label class="strikethrough">{{ substr($list->body, 0, 70) }} {{ strlen($list->body) > 70 ? "...": "" }} </label> 
 
         <button type="submit" class="delete-modal btn btn-danger pull-right btn-xs" data-id="{{$list->id}}" data-body="{{$list->body}}" value="{{$list->id}}"><span class="glyphicon glyphicon-trash"></span></button>
 
