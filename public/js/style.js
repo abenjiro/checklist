@@ -1,6 +1,6 @@
  var formValues = JSON.parse(localStorage.getItem('formValues')) || {};
 var $checkboxes = $("#checkbox-container :checkbox");
-var $button = $("#checkbox-container button");
+var $button = $("#checkbox-container .checkme");
 
 function allChecked(){
   return $checkboxes.length === $checkboxes.filter(":checked").length;

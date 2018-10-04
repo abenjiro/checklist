@@ -17,10 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::prefix('todo')->group(function(){
+Route::group(['prefix'=>'todo', 'middleware'=>'auth'],function(){
 	Route::get('/dashboard', 'TodoController@index')->name('todo.dashboard');
 	Route::post('/task','TodoController@addTask')->name('todo.save');
-	Route::post('/delete', 'TodoController@destroy')->name('todo.delete');
+	Route::delete('/delete/{id}', 'TodoController@destroy')->name('todo.delete');
+	Route::get('/history', 'TodoController@history')->name('todo.history');
+	Route::post('/update/{id}', 'TodoController@update')->name('todo.update');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

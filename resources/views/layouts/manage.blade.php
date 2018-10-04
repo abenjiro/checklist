@@ -37,6 +37,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="{{ asset('js/jquery-3.1.0.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="{{asset('js/style.js')}}"></script>
 
@@ -68,39 +69,77 @@ $.ajax({
                 $('.error').remove();
                 $('#tasks-list').append(
                     
-                    "<li class='list-group-item' ><div class='checkbox'><input type='checkbox' name='' value=''><label class='strikethrough'>"+ data.body +" </label><a href='#' class='delete-task btn btn-danger pull-right btn-xs' data-id="+data.id+" data-body="+data.body+"><span class='glyphicon glyphicon-trash'></span> </a></div></li>  "
+                    "<li class='list-group-item my-list"+data.id+"' ><div class='checkbox'><input type='checkbox' name='' value='"+data.id+"' id='"+data.id+"'><label class='strikethrough'>"+ data.body +" </label><button type='submit' class='delete-modal btn btn-danger pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='glyphicon glyphicon-trash'></span></button><button type='submit' class='edit-modal btn btn-info pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='glyphicon glyphicon-leaf'></span></button</div></li>  "
                     );
             }
         },
     });
     $('#body').val('');
 });
+
+});
+
+//edit
+$(document).on('click', '.edit-modal', function() {
+    $('.modal-title').text('Edit Task');
+    $('.form-horizontal').show();
+    $('.id').text($(this).data('id'));
+    $('#b').val($(this).data('body'));
+    $('#update').modal('show');
+});
+
+$('.modal-footer').on('click', '.editBtn', function() {
+
+        $.ajax({
+            type: 'POST',
+            url: '/todo/update/' + $('.id').text(),
+            data:{
+                '_token': $('input[name=_token]').val(),
+                
+                'body': $('#b').val()
+            },
+            success:function(data){
+                $('.my-list' + $('.id').text()).replaceWith(" " + "<li class='list-group-item my-list"+data.id+"' ><div class='checkbox'><input type='checkbox' name='' value='"+data.id+"' id='"+data.id+"'><label class='strikethrough'>"+ data.body +" </label><button type='submit' class='delete-modal btn btn-danger pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='glyphicon glyphicon-trash'></span></button><button type='submit' class='edit-modal btn btn-info pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='glyphicon glyphicon-leaf'></span></button</div></li>  "
+                    );
+                $('#update').modal('hide');
+            }
+        });
+    });
+
 //delete
-$(document).on('click', '.delete-task', function() {
+$(document).on('click', '.delete-modal', function() {
             $('.modal-title').text('Delete Task');
             $('.id').text($(this).data('id'));
-            $('.body').text($(this).data('body'));
             $('.deleteContent').show();
-            $('.title').html($(this).data('title'));
+            $('.body').html($(this).data('body'));
             $('#deleteModal').modal('show');
         });
+
         $('.modal-footer').on('click', '.deleteBtn', function() {
+
             $.ajax({
                 type: 'POST',
-                url: 'todo/delete'  + $('.id').val(),
+                url: '/todo/delete/' + $('.id').text(),
+                
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
+                },
                 data: {
+                    '_method':'DELETE',
                     '_token': $('input[name=_token]').val(),
-                    'id':$('.id').text(),
-                    'body': $('input[name=body]').val()
+                    'id':$('.id').text()
+                    
                 },
                 success: function(data) {
-                    
-                    $('.checklist' + data['id']).remove();
+                    //alert('Successfull');
+                    $('.my-list' + $('.id').text()).remove();
+                    $('#deleteModal').modal('hide');
                 }
             });
         });
 
-});
+
+
     </script>
 </body>
 </html>

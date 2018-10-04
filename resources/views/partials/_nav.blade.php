@@ -15,7 +15,7 @@
                     <a href="{{route('todo.dashboard')}}">DashBoard</a>
                   </li>
                   <li class="">
-                    <a href="#">History</a>
+                    <a href="{{route('todo.history')}}">History</a>
                   </li>
                  
                 </ul>

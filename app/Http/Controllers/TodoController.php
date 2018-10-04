@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Checklist;
@@ -14,10 +15,18 @@ class TodoController extends Controller
 
     public function index()
     {
-    	$checklist = Checklist::orderBy('id', 'desc')->where('user_id', auth()->id())->paginate(5);
+    	$checklist = Checklist::orderBy('id', 'desc')->where('user_id', auth()->id())->whereDate('created_at',Carbon::today())->paginate(5);
     	//dd($checklist);
     	return view('todo.index', compact('checklist'));
     }
+
+    public function history()
+    {
+        $checklist = Checklist::orderBy('id', 'desc')->where('user_id', auth()->id())->whereMonth('created_at',Carbon::now()->format('m'))->paginate(10);
+        //dd($checklist);
+        return view('todo.history', compact('checklist'));
+    }
+
 
     public function  addTask(Request $request)
     {
@@ -39,7 +48,16 @@ class TodoController extends Controller
     }
 
 
-    public function destroy(Request $request)
+    public function update(Request $request, $id)
+    {
+        $checklist = Checklist::find($request->id);
+        $checklist->body = $request->body;
+        $checklist->save();
+
+        return response()->json($checklist);
+    }
+
+    public function destroy(Request $request ,$id)
     {
         $checklist = Checklist::find($id);
         $checklist->delete();
