@@ -22,3 +22,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+
+$factory->define(App\Checklist::class, function (Faker\Generator $faker) {
+
+    return [
+        'user_id' => $faker->numberBetween($min = 1, $max = 30),
+        'body' => $faker->sentence,
+        'iscompleted' => rand(0,1),
+        
+    ];
+});

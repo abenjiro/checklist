@@ -17,6 +17,7 @@ class CreateTodoTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('body');
+            $table->boolean('iscompleted')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')

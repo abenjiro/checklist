@@ -23,6 +23,7 @@ Route::group(['prefix'=>'todo', 'middleware'=>'auth'],function(){
 	Route::delete('/delete/{id}', 'TodoController@destroy')->name('todo.delete');
 	Route::get('/history', 'TodoController@history')->name('todo.history');
 	Route::post('/update/{id}', 'TodoController@update')->name('todo.update');
+	Route::post('/iscomplete/{id}', 'TodoController@checkBox')->name('todo.checkbox');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -14,21 +14,38 @@
   <div class="container">
 
     <h2 class="text-center">Things To Do Today</h2>
-    <p class="text-center">Please kindly add all things you need to do,<br> To help keep your on the right path.<br><br></p>
+    <p class="text-center text-muted">Please kindly add all things you need to do,<br> To help keep you on the right path.<br><br></p>
 
     <header class="panel-heading">
                   <a href="#" id="create-task" class="btn  btn-success pull-right"> <span class="glyphicon glyphicon-pencil"></span> Add New </a>
     </header><br><br>
 
     <div id="checkbox-container">
-    <ul class="list-group" id="tasks-list" >
+    <ul class="list-group " id="tasks-list" >
+      
+      <li class="list-group-item active">Total Task List For Today is <i>{{$totalList}}</i> , completed task <i>{{$completedList}}</i>  <span class="badge">{{$totalList}}</span>
+      </li>
       @foreach($checklist as $list)
 
-      <li class="list-group-item my-list{{$list->id}}" >
+      <li class="list-group-item  my-list{{$list->id}}" >
 
         <div class="checkbox">
 
-        <input type="checkbox"  id="{{$list->id}}" name="perm[{{ $list->id }}]" value="{{ $list->id }}"> 
+        <input type="checkbox"  
+
+               id="{{$list->id}}" 
+
+               data-id="{{$list->id}}"
+
+               name="lists" 
+
+               value="{{$list->id}}" 
+
+               {{$list->iscompleted ? 'checked' : ''}} 
+
+               class="iscom"
+          />
+
         <label class="strikethrough">{{ substr($list->body, 0, 70) }} {{ strlen($list->body) > 70 ? "...": "" }} </label> 
 
         <button type="submit" class="delete-modal btn btn-danger pull-right btn-xs" data-id="{{$list->id}}" data-body="{{$list->body}}" value="{{$list->id}}"><span class="glyphicon glyphicon-trash"></span></button>
@@ -42,7 +59,7 @@
     
     
 
-    <button type="submit" class="checkme btn btn-sm btn-info">Check All</button>
+    {{-- <button type="submit" class="checkme btn btn-sm btn-info">Check All</button> --}}
   </div>
     <!-- Pagination -->
           <ul class="pagination pull-right">

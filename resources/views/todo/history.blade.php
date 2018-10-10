@@ -10,29 +10,45 @@
 
 
     
-
   <div class="container">
 
     <h2 class="text-center">All Things Needed To Do This Month</h2>
-    <p class="text-center">List of all task in the month of ...<br><br></p>
+    <p class="text-center text-muted">List of all task in the month of ....<br><br></p>
 
-    
+  
 
     <div id="checkbox-container">
-    <ul class="list-group" id="tasks-list" >
-      @foreach($checklist as $list)
+    <ul class="list-group " id="tasks-list" >
       
-      <li class="list-group-item my-list{{$list->id}}" >
+      <li class="list-group-item active">Total Task List For This Month <i>{{$totalList}}</i>, completed Task <i>{{$completedList}}</i>  <span class="badge">{{$totalList}}</span>
+      </li>
+      @foreach($checklist as $list)
+
+      <li class="list-group-item  my-list{{$list->id}}" >
 
         <div class="checkbox">
 
-        <input type="checkbox"  id="{{$list->id}}" name="perm[{{ $list->id }}]" value="{{ $list->id }}"> 
-        <label class="strikethrough">{{$list->body}} </label> 
+        <input type="checkbox"  
 
-        
+               id="{{$list->id}}" 
+
+               data-id="{{$list->id}}"
+
+               name="lists" 
+
+               value="{{$list->id}}" 
+
+               {{$list->iscompleted ? 'checked' : ''}} 
+
+               class="iscom"
+          />
+
+        <label class="strikethrough">{{ substr($list->body, 0, 70) }} {{ strlen($list->body) > 70 ? "...": "" }} </label> 
 
         <button type="submit" class="delete-modal btn btn-danger pull-right btn-xs" data-id="{{$list->id}}" data-body="{{$list->body}}" value="{{$list->id}}"><span class="glyphicon glyphicon-trash"></span></button>
-       
+
+       <button type="submit" class="edit-modal btn btn-info pull-right btn-xs" data-id="{{$list->id}}" data-body="{{$list->body}}" value="{{$list->id}}"><span class="glyphicon glyphicon-leaf"></span></button>
+
         </div>
       </li>
       @endforeach
@@ -40,6 +56,7 @@
     
     
 
+    {{-- <button type="submit" class="checkme btn btn-sm btn-info">Check All</button> --}}
   </div>
     <!-- Pagination -->
           <ul class="pagination pull-right">
@@ -55,6 +72,37 @@
 
 
 
+<!--Update Modal -->
+<div id="update" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!--  Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+        
+            <div class="form-group">
+            <label class="control-label col-sm-2">Task:</label>
+            <div class="col-sm-10">
+            <input class="form-control input-lg" type="text" id="b" value="" name="body" required/><br>
+            <p class="text-center alert alert-danger hidden"></p>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" name="update-task" id="update-task"  class="editBtn btn btn-warning " ><span class="glyphicon glyphicon-leaf"> Update-Task</span></button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div> 
+
+  </div>
+</div>{{-- end of modal --}}
 
 
 <!--Delete Modal -->

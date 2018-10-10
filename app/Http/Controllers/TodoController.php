@@ -15,16 +15,41 @@ class TodoController extends Controller
 
     public function index()
     {
-    	$checklist = Checklist::orderBy('id', 'desc')->where('user_id', auth()->id())->whereDate('created_at',Carbon::today())->paginate(5);
+    	$checklist = Checklist::orderBy('id', 'desc')
+                    ->where('user_id', auth()->id())
+                    ->whereDate('created_at',Carbon::today())
+                    ->paginate(5);
     	//dd($checklist);
-    	return view('todo.index', compact('checklist'));
+
+        $totalList = Checklist::where('user_id', auth()->id())
+                    ->whereDate('created_at',Carbon::today())     
+                    ->count();
+        //dd($totalList);
+        $completedList = Checklist::where('user_id', auth()->id())
+                    ->whereDate('created_at',Carbon::today()) 
+                    ->where('iscompleted' , 1)    
+                    ->count();
+        //($completedList);
+    	return view('todo.index', compact('checklist', 'totalList' , 'completedList'));
     }
 
     public function history()
     {
-        $checklist = Checklist::orderBy('id', 'desc')->where('user_id', auth()->id())->whereMonth('created_at',Carbon::now()->format('m'))->paginate(10);
+        $checklist = Checklist::orderBy('id', 'desc')
+                       ->where('user_id', auth()->id())
+                       ->whereMonth('created_at',Carbon::now()->format('m'))
+                       ->paginate(10);
         //dd($checklist);
-        return view('todo.history', compact('checklist'));
+        $totalList = Checklist::where('user_id', auth()->id())
+                    ->whereMonth('created_at',Carbon::now()->format('m'))     
+                    ->count();
+
+         $completedList = Checklist::where('user_id', auth()->id())
+                    ->whereMonth('created_at',Carbon::now()->format('m'))
+                    ->where('iscompleted' , 1)    
+                    ->count();
+        //($completedList);
+        return view('todo.history', compact('checklist', 'totalList', 'completedList'));
     }
 
 
@@ -55,6 +80,21 @@ class TodoController extends Controller
         $checklist->save();
 
         return response()->json($checklist);
+    }
+
+    public function checkBox(Request $request,$id)
+    {
+        $checklist = Checklist::findOrFail($request->id);
+        if ($checklist->iscompleted == 1) {
+            $checklist->iscompleted = 0;
+        }else{
+            $checklist->iscompleted = 1;
+        }
+        return response()->json([
+            'data' => [
+                'success' => $checklist->save(),
+            ]
+        ]);
     }
 
     public function destroy(Request $request ,$id)

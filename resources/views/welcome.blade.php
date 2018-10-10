@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>To Do</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -50,7 +50,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: white;
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
@@ -62,9 +62,12 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            .f-color{
+                color: white;
+            }
         </style>
     </head>
-    <body>
+    <body style="background: url(img/bg.jpg) no-repeat center center fixed; background-size: cover;">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -78,13 +81,13 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
+                <div class="title m-b-md f-color" >
                     My To-Do Application
                 </div>
 
                 <div class="links">
-                    <a href="{{ url('/login') }}">Login</a>
-                    <a href="{{ url('/register') }}">Register</a>
+                    <a href="{{ url('/login') }}" >Login</a>
+                    <a href="{{ url('/register') }}" >Register</a>
 
                 </div>
             </div>
