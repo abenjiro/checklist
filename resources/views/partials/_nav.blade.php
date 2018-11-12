@@ -7,24 +7,25 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">MY CHECKLIST</a>
+                <a class="navbar-brand" href="{{route('todo.dashboard')}}">MY CHECKLIST</a>
               </div>
               <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                  <li class="active">
-                    <a href="{{route('todo.dashboard')}}">DashBoard</a>
+                  <li class="{{active_menu(Route::currentRouteName(), 'todo.dashboard' , 0, 2)}}">
+                    <a href="{{route('todo.dashboard')}}"><span class="fa fa-tachometer"> DashBoard</span> </a>
                   </li>
-                  <li class="">
-                    <a href="{{route('todo.history')}}">History</a>
+                  <li class="{{active_menu(Route::currentRouteName(), 'todo.history' , 0, 4)}}">
+                    <a href="{{route('todo.history')}}"><span class="fa fa-calendar"> History</span></a>
                   </li>
                  
                 </ul>
+                
                 <ul class="nav navbar-nav navbar-right">
                 <li>
                   <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
-                    Logout
+                    <span class="fa fa-sign-out"> Logout</span> 
                   </a>
 
 
@@ -35,7 +36,7 @@
                 </ul>
                 
                  <p class="navbar-text">
-                  USER NAME
+                  USER <span class="fa fa-user"></span>
                   <a href="#">{{ Auth::user()->name }}</a>
                 </p>
               </div>

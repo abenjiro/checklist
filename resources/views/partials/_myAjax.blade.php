@@ -24,7 +24,7 @@ $.ajax({
                 $('.error').remove();
                 $('#tasks-list').append(
                     
-                    "<li class='list-group-item my-list"+data.id+"' ><div class='checkbox'><input type='checkbox' name='' value='"+data.id+"' id='"+data.id+"'><label class='strikethrough'>"+ data.body +" </label><button type='submit' class='delete-modal btn btn-danger pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='glyphicon glyphicon-trash'></span></button><button type='submit' class='edit-modal btn btn-info pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='glyphicon glyphicon-leaf'></span></button</div></li>  "
+                    "<li class='list-group-item my-list"+data.id+"' ><div class='checkbox'><input type='checkbox' name='' value='"+data.id+"' id='"+data.id+"'><label class='strikethrough'>"+ data.body +" </label><button type='submit' class='delete-modal btn btn-danger pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='fa fa-trash-o'></span></button><button type='submit' class='edit-modal btn btn-info pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='fa fa-magic'></span></button</div></li>  "
                     );
             }
         },
@@ -54,7 +54,7 @@ $('.modal-footer').on('click', '.editBtn', function() {
                 'body': $('#b').val()
             },
             success:function(data){
-                $('.my-list' + $('.id').text()).replaceWith(" " + "<li class='list-group-item my-list"+data.id+"' ><div class='checkbox'><input type='checkbox' name='' value='"+data.id+"' id='"+data.id+"'><label class='strikethrough'>"+ data.body +" </label><button type='submit' class='delete-modal btn btn-danger pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='glyphicon glyphicon-trash'></span></button><button type='submit' class='edit-modal btn btn-info pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='glyphicon glyphicon-leaf'></span></button</div></li>  "
+                $('.my-list' + $('.id').text()).replaceWith(" " + "<li class='list-group-item my-list"+data.id+"' ><div class='checkbox'><input type='checkbox' name='' value='"+data.id+"' id='"+data.id+"'><label class='strikethrough'>"+ data.body +" </label><button type='submit' class='delete-modal btn btn-danger pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='fa fa-trash-o'></span></button><button type='submit' class='edit-modal btn btn-info pull-right btn-xs' data-id="+data.id+" data-body="+data.body+" value="+data.id+"><span class='fa fa-magic'></span></button</div></li>  "
                     );
                 $('#update').modal('hide');
             }

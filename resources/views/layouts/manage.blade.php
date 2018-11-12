@@ -8,13 +8,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>To-Do</title>
+    <title>Check-Bee</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{asset('css/font-awesome.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
+    @yield('dynamicCSS')
 </head>
 <body>
     <div id="app">

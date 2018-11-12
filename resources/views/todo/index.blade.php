@@ -11,19 +11,21 @@
 
     
 
-  <div class="container">
+  <div class="container-fluid">
+    <div class="row">
+    <div  class="col-sm-10 col-sm-offset-1">
 
     <h2 class="text-center">Things To Do Today</h2>
     <p class="text-center text-muted">Please kindly add all things you need to do,<br> To help keep you on the right path.<br><br></p>
 
     <header class="panel-heading">
-                  <a href="#" id="create-task" class="btn  btn-success pull-right"> <span class="glyphicon glyphicon-pencil"></span> Add New </a>
+                  <a href="#" id="create-task" class="btn  btn-success pull-right"> <span class="fa fa-book"></span> Add New </a>
     </header><br><br>
 
     <div id="checkbox-container">
     <ul class="list-group " id="tasks-list" >
       
-      <li class="list-group-item active">Total Task List For Today is <i>{{$totalList}}</i> , completed task <i>{{$completedList}}</i>  <span class="badge">{{$totalList}}</span>
+      <li class="list-group-item active" style="font-family: sans-serif; "><strong> Total Task List For Today is <i>{{$totalList}}</i> , completed task <i>{{$completedList}}</i> </strong> <span class="badge">{{$totalList}}</span>
       </li>
       @foreach($checklist as $list)
 
@@ -48,9 +50,9 @@
 
         <label class="strikethrough">{{ substr($list->body, 0, 70) }} {{ strlen($list->body) > 70 ? "...": "" }} </label> 
 
-        <button type="submit" class="delete-modal btn btn-danger pull-right btn-xs" data-id="{{$list->id}}" data-body="{{$list->body}}" value="{{$list->id}}"><span class="glyphicon glyphicon-trash"></span></button>
+        <button type="submit" class="delete-modal btn btn-danger pull-right btn-xs" data-id="{{$list->id}}" data-body="{{$list->body}}" value="{{$list->id}}"><span class="fa fa-trash-o"></span></button>
 
-       <button type="submit" class="edit-modal btn btn-info pull-right btn-xs" data-id="{{$list->id}}" data-body="{{$list->body}}" value="{{$list->id}}"><span class="glyphicon glyphicon-leaf"></span></button>
+       <button type="submit" class="edit-modal btn btn-info pull-right btn-xs" data-id="{{$list->id}}" data-body="{{$list->body}}" value="{{$list->id}}"><span class="fa fa-magic "></span></button>
 
         </div>
       </li>
@@ -64,15 +66,16 @@
     <!-- Pagination -->
           <ul class="pagination pull-right">
             <li class="page-item">
-              <a class="page-link" href="{{  $checklist->nextPageUrl() }}">&larr; Older</a>
+              <a class="page-link" href="{{  $checklist->nextPageUrl() }}"><span class=" fa fa-arrow-left"> Old</span></a>
             </li>
             <li class="page-item ">
-              <a class="page-link" href="{{ $checklist->previousPageUrl() }}">Newer &rarr;</a>
+              <a class="page-link" href="{{ $checklist->previousPageUrl() }}">New <span class="fa fa-arrow-right"></span></a>
             </li>
           </ul>
 
   </div>
-
+  </div>
+</div>
 
 <!--Create Modal -->
 <div id="create" class="modal fade" role="dialog">
@@ -98,8 +101,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="submit" name="save-task" id="save-task"  class="btn btn-warning " ><span class="glyphicon glyphicon-plus"> Save-Task</span></button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" name="save-task" id="save-task"  class="btn btn-warning " ><span class="fa fa-plus"> Save-Task</span></button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"> Close</span></button>
       </div>
     </div> 
 
@@ -130,8 +133,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="submit" name="update-task" id="update-task"  class="editBtn btn btn-warning " ><span class="glyphicon glyphicon-leaf"> Update-Task</span></button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" name="update-task" id="update-task"  class="editBtn btn btn-warning " ><span class="fa fa-eraser"> Update-Task</span></button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="fa fa-times"> Close</span></button>
       </div>
     </div> 
 
@@ -159,9 +162,9 @@
       </div>
     </form>
       <div class="modal-footer">
-        <button type="hidden" name="_method" id="id"   class="deleteBtn btn btn-danger " value="delete"><span class="glyphicon glyphicon-trash"> Delete-Task</span></button>
+        <button type="hidden" name="_method" id="id"   class="deleteBtn btn btn-danger " value="delete"><span class="fa fa-trash-o"> Delete-Task</span></button>
         {{-- <button class="deleteBtn btn btn-danger pull-right btn-xs" data-token="{{ csrf_token()}}" data-id="{{$list->id}}"><span class="glyphicon glyphicon-trash"></span></button> --}}
-        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal"><span class="fa fa-times"> Cancel</span></button>
       </div>
     </div> 
 
