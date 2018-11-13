@@ -50,7 +50,7 @@
                class="iscom"
           />
 
-        <label class="strikethrough">{{ substr($list->body, 0, 70) }} {{ strlen($list->body) > 70 ? "...": "" }} </label> 
+        <label class="strikethrough">{{ date('M j, Y ', strtotime($list->created_at))}} | {{ substr($list->body, 0, 70) }} {{ strlen($list->body) > 70 ? "...": "" }} </label> 
 
         <button type="submit" class="delete-modal btn btn-danger pull-right btn-xs" data-id="{{$list->id}}" data-body="{{$list->body}}" value="{{$list->id}}"><span class="fa fa-trash-o"></span></button>
 

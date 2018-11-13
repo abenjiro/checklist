@@ -122,8 +122,8 @@ canvas{
 
                 <div class="links" >
 
-                    <a href="{{ url('/login') }}" style="color: white" >Login</a>
-                    <a href="{{ url('/register') }} "style="color: white" >Register</a>
+                    <a href="{{ url('/login') }}" style="color: white;" >Login</a>
+                    <a href="{{ url('/register')}}" style="color: white;" >Register</a>
 
                 </div>
             </div>
