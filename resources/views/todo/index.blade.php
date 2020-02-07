@@ -57,6 +57,17 @@
         </div>
       </li>
       @endforeach
+      @foreach ($st as $item)
+          <table>
+            <tr>
+              <th>file</th>
+            </tr>
+            <tr>
+            <td>{{$item}}</td>
+            <td><a href="{{route('todo.download', $item)}}" class="btn btn-success" >download asset</a> </td>
+            </tr>
+          </table>
+      @endforeach
     </ul>
     
     

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Checklist;
 use Response;
 use Validator;
+use Illuminate\Support\Facades\Storage;
 
 class TodoController extends Controller
 {
@@ -30,7 +31,23 @@ class TodoController extends Controller
                     ->where('iscompleted' , 1)    
                     ->count();
         //($completedList);
-    	return view('todo.index', compact('checklist', 'totalList' , 'completedList'));
+        //s3 storage:
+        $st = Storage::disk('s3')->allFiles('');
+        // dd($st);
+    	return view('todo.index', compact('checklist', 'totalList' , 'completedList', 'st'));
+    }
+
+    public function downloadAsset($filename)
+    {
+        // $asset = Asset::find($id);
+        $assetPath = Storage::disk('s3')->url($filename);
+
+        header("Cache-Control: public");
+        header("Content-Description: File Transfer");
+        header("Content-Disposition: attachment; filename=" . basename($assetPath));
+        header("Content-Type: " . $filename);
+
+        return readfile($assetPath);
     }
 
     public function history()
